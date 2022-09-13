@@ -3,7 +3,7 @@
     <div class="content-box_card_item" v-for="b in blogs" :key="b.title">
       <div class="cardCoverBox">
         <a href="https://www.runoob.com" target="_blank">
-          <img class="cardCoverBox-img" src="../assets/icon.png" alt="" />
+          <img class="cardCoverBox-img" :src="b.img_url" alt="图片" />
         </a>
       </div>
       <div class="cardTitle">
@@ -44,10 +44,11 @@ export default {
     getBlogList() {
       axios({
         method: "GET",
-        url: "api/v1/blogs.json",
+        url: "/api/v1/blogs.json",
       }).then((response) => (this.blogs = response.data));
     },
   },
+  computed: {},
 };
 </script>
 
@@ -90,7 +91,7 @@ div.cardTitle span {
 /* 卡片容器内部作者信息的容器 */
 div.cardBottom {
   padding: 0 10px;
-  margin:4px 0 8px 0;
+  margin: 4px 0 8px 0;
   /* padding-bottom: 10px; */
 }
 </style>

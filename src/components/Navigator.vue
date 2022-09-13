@@ -4,12 +4,12 @@
       ><strong>{{ website_name }}</strong></span
     >
     <span>
-      <a href="http://localhost:8080/">首页</a>
+      <router-link to="/Home">首页</router-link>
     </span>
     <!-- <div class="btu_sign_up"> -->
-    <a href="" v-on:click="toRegister" translate=""><span class="sign_up">注册</span></a>
+    <router-link to="/Regsiter"><span class="sign_up">注册</span></router-link>
     <!-- </div> -->
-    <span class="login">登录</span>
+    <router-link to="/login" class="login">登录</router-link>
   </div>
 </template>
 
@@ -18,11 +18,6 @@ export default {
   name: "WebNavigator",
   props: {
     website_name: String,
-  },
-  methods: {
-    toRegister() {
-      this.$router.replace("/Register");
-    },
   },
 };
 </script>
@@ -46,17 +41,21 @@ span.website_name {
 /* div.btu_sign_up{
 	margin: 15px;
 } */
-span.login {
+.login {
+  height: 100%;
+  padding: 11px 24px;
+  /* padding: 0 24px; */
   float: right;
-  margin-right: 1.5%;
+  color: #000;
+  text-decoration: none;
 }
 
 span.sign_up {
-	padding: 0 20px;
-	/* width: 40px; */
-	height: 100%;
-	background-color: black;
-	color: #fff;
+  padding: 0 20px;
+  /* width: 40px; */
+  height: 100%;
+  background-color: black;
+  color: #fff;
   float: right;
   margin-right: 3%;
 }
