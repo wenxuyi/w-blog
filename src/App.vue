@@ -1,36 +1,27 @@
 <template>
-  <WebNavigator website_name="W Blog"/>
-  <WebRecommend v-show="$route.meta.show"/>
+  <WebNavigator website_name="W Blog" />
+  <WebRecommend v-show="$route.meta.show" />
   <!-- <BlogList v-show="$route.meta.show"/> -->
   <router-view></router-view>
-  <WebFooter website_name="W Blog"/>
+  <WebFooter website_name="W Blog" />
 </template>
 
 <script>
-import WebNavigator from './components/Navigator.vue'
-import WebRecommend from './components/Recommend.vue'
-import BlogList from './components/pages/BlogList.vue'
-import WebFooter from './components/WebFooter.vue'
+import WebNavigator from "./components/Navigator.vue";
+import WebRecommend from "./components/Recommend.vue";
+import BlogList from "./components/pages/BlogList.vue";
+import WebFooter from "./components/WebFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     WebNavigator,
     WebRecommend,
     BlogList,
-    WebFooter
-}
-}
+    WebFooter,
+  },
+};
 </script>
 
 <style>
-*{
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-}
-a{
-  color: #000;
-  text-decoration:none;
-}
 </style>
