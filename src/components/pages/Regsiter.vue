@@ -6,11 +6,11 @@
     <div class="new_reg_box_content">
       <form action="" @submit.prevent="post">
         <span>手机号码：</span>
-        <input type="text" class="pass_text_userName" v-model="phone" />
+        <input type="text" class="pass_text_userName" v-model="user.phone" />
         <br />
         <span>验证码：</span>
         <div class="validate_box">
-          <input type="text" class="validate_code" v-model="validateCode" />
+          <input type="text" class="validate_code" v-model="user.validateCode" />
           <button class="validate_button" @click="getValidateCode">
             发送验证码
           </button>
@@ -18,13 +18,69 @@
 
         <br />
         <span>密码：</span>
-        <input type="password" class="pass_text_passWord" v-model="passWord" />
+        <input type="password" class="pass_text_passWord" v-model="user.passWord" />
         <br />
         <button class="pass_button" @click="registerHandle">提交</button>
       </form>
     </div>
   </div>
 </template>
+
+
+
+<script type="mudole">
+//引入数据验证方法
+import api from "../../api/index";
+
+export default {
+  data() {
+    return {
+      user: {
+        phone: "",
+        passWord: "",
+        validateCode: ""
+      }
+    }
+  },
+  methods: {
+    //获取用户手机验证码
+    getValidateCode() {
+      //验证用户输入手机号
+      if (!api.checkdatas.default.checkPhoneNumber(this.user.phone)) {
+        return;
+      }
+      api.requests.default.getPhone(this.user.phone);
+    },
+    async registerHandle() {
+      // console.log("注册方法执行");
+      if (!api.checkdatas.default.checkPhoneNumber(this.user.phone)) {
+        return;
+      }
+      if (!api.checkdatas.default.checkUserPassword(this.user.passWord)) {
+        return;
+      }
+      let a = await api.requests.default
+        .ValidateCode(this.user)
+        .then((y) => y);
+      console.log(a);
+      // console.log(a.data.error_msg);
+      // console.log(a.status);
+      if (a.status != 200) {
+        alert("服务器繁忙，请稍后再试");
+        return;
+      }
+      if (a.data.error_msg) {
+        alert(a.data.error_msg);
+        return;
+      }
+      alert("注册成功");
+      this.$router.push("/Login");
+    },
+  },
+};
+</script>
+
+
 
 <style>
 .new_reg_box {
@@ -117,6 +173,10 @@
   order: 1;
   flex-grow: 0;
 }
+.inputRed {
+  border: 2px solid red;
+}
+
 .validate_box input {
   width: 60%;
 }
@@ -154,31 +214,3 @@
   flex-grow: 0;
 }
 </style>
-
-
-
-<script>
-export default {
-  data() {
-    return {
-      phone: "",
-      passWord: "",
-      validateCode: "",
-    };
-  },
-  methods: {
-    registerHandle() {
-      console.log("registerHandle方法");
-      if(this.phone === "" || this.phone.length != 11){
-          alert("手机号码格式错误，请重新填写！！！");
-          return
-      }
-      console.log(this.phone, this.passWord, this.validateCode);
-    },
-    getValidateCode() {
-      console.log("获取验证码方法");
-      console.log(this.phone);
-    },
-  },
-};
-</script>

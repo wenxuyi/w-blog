@@ -1,15 +1,22 @@
 <template>
   <div id="nav">
-    <span class="website_name"
-      ><strong>{{ website_name }}</strong></span
-    >
-    <span>
-      <router-link to="/Home">首页</router-link>
+    <span class="website_name">
+      <strong>{{ website_name }}</strong>
     </span>
+    <router-link to="/Home">
+      <span class="nav-list">首页</span>
+    </router-link>
+    <router-link to="/UpFile">
+      <span class="nav-list">上传文件</span>
+    </router-link>
     <!-- <div class="btu_sign_up"> -->
-    <router-link to="/Regsiter"><span class="sign_up">注册</span></router-link>
+    <router-link to="/Regsiter">
+      <span class="sign_up">注册</span>
+    </router-link>
     <!-- </div> -->
-    <router-link to="/login" class="login">登录</router-link>
+    <router-link to="/login" class="login">
+      <span class="nav-list login">登录</span>
+    </router-link>
   </div>
 </template>
 
@@ -23,6 +30,25 @@ export default {
 </script>
 
 <style>
+#nav {
+  padding: 0 4%;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+.nav-list {
+  display: inline-block;
+  text-decoration: none;
+  height: 100%;
+  padding: 0 12px;
+  color: #000;
+}
+.nav-list:hover {
+  transition: 0.3s;
+  background-color: rgba(136, 136, 136, 0.3);
+}
+
 div#nav {
   height: 50px;
   background-color: rgb(255, 242, 0);
@@ -35,19 +61,14 @@ div#nav span {
 }
 
 span.website_name {
-  margin-left: 3%;
-  margin-right: 5%;
+  /* margin-left: 1%; */
+  margin-right: 2%;
 }
 /* div.btu_sign_up{
 	margin: 15px;
 } */
 .login {
-  height: 100%;
-  padding: 11px 24px;
-  /* padding: 0 24px; */
   float: right;
-  color: #000;
-  text-decoration: none;
 }
 
 span.sign_up {
@@ -57,7 +78,7 @@ span.sign_up {
   background-color: black;
   color: #fff;
   float: right;
-  margin-right: 3%;
+  /* margin-right: 3%; */
 }
 
 span a {

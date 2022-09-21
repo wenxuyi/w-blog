@@ -24,4 +24,14 @@ export default {
 </script>
 
 <style>
+/* body {
+  background: #ededed;
+}
+#app {
+  background: #ededed;
+} */
+page {
+  background-color: #ededed;
+  height: 100vh;
+}
 </style>
