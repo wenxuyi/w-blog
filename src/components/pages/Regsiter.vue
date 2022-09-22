@@ -29,7 +29,6 @@
 
 
 <script type="mudole">
-//引入数据验证方法
 import api from "../../api/index";
 
 export default {

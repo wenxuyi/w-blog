@@ -1,6 +1,7 @@
 const axios = require("axios")
 let urlLastWord = '.json';
 
+
 export default {
   //手机验证码请求
   getPhone(phone) {
@@ -46,9 +47,10 @@ export default {
       url: 'api/v1/users/log_in' + urlLastWord
     });
   },
-  upFile(artLsit){
+  //文件上传请求 artLsit文件信息对象
+  upFile(artLsit) {
     console.log(artLsit);
-    console.log(artLsit.artName,artLsit.artDescribe);
+    console.log(artLsit.artName, artLsit.artDescribe);
     // return axios({
     //   method: "POST",
     //   data: {
@@ -59,5 +61,22 @@ export default {
     //   },
     //   url: 'api/v1/users/log_in' + urlLastWord
     // });
+  },
+  //页面获取用户信息
+  getUserInfo() {
+    // console.log('getUserInfo===' + localStorage.getItem('TOKEN'));
+    return axios({
+      method: "GET",
+      url: 'api/v1/users/user_info.json?token=' + sessionStorage.getItem('TOKEN')
+    });
+  },
+  // 用户退出登录 
+  userLoginOut(phone) {
+    return axios({
+      method: "POST",
+      url: 'api/v1/users/' + phone + '/log_out.json'
+    });
   }
+
 }
+

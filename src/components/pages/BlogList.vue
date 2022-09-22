@@ -25,6 +25,7 @@
 
 <script>
 const axios = require("axios");
+import api from "../../api/index";
 
 export default {
   name: "BlogList",
@@ -40,6 +41,17 @@ export default {
   created() {
     this.getBlogList();
   },
+  async beforeMount() {
+    if (sessionStorage.getItem("TOKEN")) {
+      let res = await api.requests.default.getUserInfo();
+      // console.log("beforeMount11111=" + JSON.parse(res));
+      // console.log(res.data);
+      if (res.data.phone) {
+        sessionStorage.setItem("userName", res.data.phone); 
+      }
+    }
+    // console.log(this.$userName);
+  },
   methods: {
     getBlogList() {
       axios({
@@ -48,7 +60,6 @@ export default {
       }).then((response) => (this.blogs = response.data));
     },
   },
-  computed: {},
 };
 </script>
 

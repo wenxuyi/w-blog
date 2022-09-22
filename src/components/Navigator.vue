@@ -9,23 +9,61 @@
     <router-link to="/UpFile">
       <span class="nav-list">上传文件</span>
     </router-link>
-    <!-- <div class="btu_sign_up"> -->
-    <router-link to="/Regsiter">
-      <span class="sign_up">注册</span>
-    </router-link>
-    <!-- </div> -->
-    <router-link to="/login" class="login">
-      <span class="nav-list login">登录</span>
-    </router-link>
+    <p v-if="!userName" class="right_box">
+      <!-- <div class="btu_sign_up"> -->
+      <router-link to="/Regsiter">
+        <span class="sign_up">注册</span>
+      </router-link>
+
+      <!-- </div> -->
+      <router-link to="/login" class="login">
+        <span class="nav-list login">登录</span>
+      </router-link>
+    </p>
+    <p v-else class="right_box">
+      <!-- <div class="btu_sign_up"> -->
+      <span class="nav-list">{{ userName }}</span>
+      <span class="sign_up" @click="loginOut">退出登录</span>
+
+      <!-- </div> -->
+    </p>
   </div>
 </template>
 
 <script>
+import api from "../api/index";
+
 export default {
   name: "WebNavigator",
   props: {
     website_name: String,
   },
+  data() {
+    return {
+      userName: "",
+    };
+  },
+  methods: {
+    async loginOut() {
+      let ras = await api.requests.default.userLoginOut(
+        sessionStorage.getItem("userName")
+      );
+      if (ras.status === 200) {
+        alert("退出成功");
+        sessionStorage.removeItem("userName");
+        sessionStorage.removeItem("TOKEN");
+        this.userName = "";
+        this.$router.push("/Home");
+      }
+      console.log(ras);
+    },
+  },
+  computed: {
+    username() {
+      this.userName = sessionStorage.getItem("userName");
+      return this.userName;
+    }
+  }
 };
 </script>
 
@@ -67,11 +105,11 @@ span.website_name {
 /* div.btu_sign_up{
 	margin: 15px;
 } */
-.login {
+.right_box {
   float: right;
 }
 
-span.sign_up {
+p span.sign_up {
   padding: 0 20px;
   /* width: 40px; */
   height: 100%;

@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-   async login() {
+    async login() {
       //验证用户输入手机号
       if (!api.checkdatas.default.checkPhoneNumber(this.userName)) {
         return;
@@ -36,10 +36,8 @@ export default {
       if (!api.checkdatas.default.checkUserPassword(this.passWord)) {
         return;
       }
-      let res = await api.requests.default
-        .login(this.userName, this.passWord)
-        .then(y => y);
-      console.log(res);
+      let res = await api.requests.default.login(this.userName, this.passWord)
+      // console.log(res);
       if (res.status != 200) {
         alert("服务器繁忙，请稍后再试");
         return;
@@ -49,7 +47,8 @@ export default {
         return;
       }
       alert("登录成功");
-      localStorage.setItem('TOKEN',res.data.token);
+      // console.log("登录的token===" + res.data.token);
+      sessionStorage.setItem("TOKEN", res.data.token);
       this.$router.push("/Home");
     },
   },

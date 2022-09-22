@@ -49,8 +49,10 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+// 路由守卫
 router.beforeEach((to, from, next) => {
-  let isLogin = localStorage.getItem("TOKEN");
+  let isLogin = sessionStorage.getItem("TOKEN");
+  // console.log('路由守卫的token===' + isLogin);
   if (to.fullPath === '/UpFile') {
     if (isLogin == null) {
       alert('账号未登录，请先登录');
@@ -62,6 +64,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
   else {
+    // sessionStorage.setItem("TOKEN",'');
     next('/login');
   }
 })
